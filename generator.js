@@ -1,0 +1,6 @@
+
+exports.generateRamdomData = function (){
+
+
+
+}
