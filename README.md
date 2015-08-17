@@ -1,4 +1,4 @@
-# httpTester
+#httpTester
 Auto http request generator 
 
 #First Run
@@ -7,3 +7,7 @@ Auto http request generator
 npm install
 ```
 
+#Run
+```javascript
+node index.js
+```
