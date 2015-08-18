@@ -3,9 +3,9 @@ exports.generateRandomData = function (){
 
     var data = {
         "TargetDate": (new Date()).toISOString(),
-        "TargetTime": getRandomProtocol(['0123456789', '2514639870', '9874563210', 2103658947]),
+        "TargetTime": getRandomProtocol(['0123456789', '2514639870', '9874563210', '2103658947']),
         "POSID": getRandomNumber(1,5),
-        "POSName": getRandomProtocol(['aloha', 'futurepos', 'until', 'genericPos', 'standardPos']),
+        "POSName": getRandomProtocol(['alpha', 'beta', 'lambda', 'gamma', 'delta']),
         "Reports": {
             "Turnover": getRandomNumber(10,3000),
             "Hourly":
@@ -73,32 +73,32 @@ exports.generateRandomData = function (){
                 ],
             "Departments":
                 [
-                    {
-                        "departmentName":getRandomProtocol(['Foo', 'Bar', 'Zar', 'Tall']),
-                        "departmentID":getRandomNumber(1,50),
-                        "turnover":getRandomNumber(10,500)
-                    },
-                    [
+                        {
+                            "departmentName":getRandomProtocol(['Foo', 'Bar', 'Zar', 'Tall']),
+                            "departmentID":getRandomNumber(1,50),
+                            "turnover":getRandomNumber(10,500)
+                        },
+
                         {
                             "departmentName":getRandomProtocol(['Foo', 'Bar', 'Zar', 'Tall']),
                             "departmentID":getRandomNumber(1,50),
                             "turnover":getRandomNumber(10,500)
                         }
-                    ],
-                    [
+                    ,
+
                         {
                             "departmentName":getRandomProtocol(['Foo', 'Bar', 'Zar', 'Tall']),
                             "departmentID":getRandomNumber(1,50),
                             "turnover":getRandomNumber(10,500)
                         }
-                    ],
-                    [
+                    ,
+
                         {
                             "departmentName":getRandomProtocol(['Foo', 'Bar', 'Zar', 'Tall']),
                             "departmentID":getRandomNumber(1,50),
                             "turnover":getRandomNumber(10,500)
                         }
-                    ]
+
                 ]
         }
     };
@@ -110,7 +110,7 @@ exports.generateRandomHeader = function () {
 
     var header = {
         "POSUniqueID" : getRandomProtocol(['aloha', 'futurepos', 'until', 'genericPos', 'standardPos']),
-        "ClientID": getRandomNumber(1,999),
+        "ClientID": (getRandomNumber(1,10)).toString(),
         "Hash": getRandomNumber(10000, 99999) + getRandomProtocol(['abcd','efgh','ijkl','mnop','qrst','uvwx','yz']) + getRandomNumber(10000, 99999) + getRandomProtocol(['abcd','efgh','ijkl','mnop','qrst','uvwx','yz'])
     };
 

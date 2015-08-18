@@ -57,9 +57,6 @@ function init () {
 }
 
 
+setInterval(function(){ init() }, 1000);
 
-
-
-
-
-setInterval(function(){ init() }, 10);
+//init();
