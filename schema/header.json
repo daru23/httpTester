@@ -1,0 +1,22 @@
+{
+  "title" : "Header Validator",
+  "type": "object",
+  "properties" : {
+    "headers" : {
+      "type" : "object",
+      "properties": {
+        "credentials" : {
+          "type": "object",
+          "properties": {
+            "POSUniqueID": {"type": "string"},
+            "ClientID": {"type": "string"},
+            "Hash": {"type": "string"}
+          },
+          "required": ["POSUniqueID", "ClientID", "Hash"]
+
+        }
+      },
+      "required" : ["credentials"]
+    }
+  }
+}

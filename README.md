@@ -1,5 +1,5 @@
 #httpTester
-Auto http request generator 
+Auto http request generator to test DyflexisPOS 
 
 #First Run
 
@@ -9,5 +9,5 @@ npm install
 
 #Run
 ```javascript
-node index.js
+./index.js 2015-10-12 POSHash POSName POSClientID
 ```

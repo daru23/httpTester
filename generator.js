@@ -1,131 +1,199 @@
+/*************************************************
+ File:      generator.js
+ Project:   DyflexisPOS -httpTester
+ For:       Wodan Brothers (2015)
+ By:        Lars van der Schans (◣_◢)
+ ::: (\_(\  Daniela Ruiz (｡◕‿◕｡)
+ *: (=’ :’) :*
+ •..(,(”)(”)¤°.¸¸.•´¯`»***************************/
 
-exports.generateRandomData = function (){
+/* Require Packages */
+var dateHelper = require("date-extended");
 
-    var data = {
-        "TargetDate": (new Date()).toISOString(),
-        "TargetTime": getRandomProtocol(['0123456789', '2514639870', '9874563210', '2103658947']),
-        "POSID": getRandomNumber(1,5),
-        "POSName": getRandomProtocol(['alpha', 'beta', 'lambda', 'gamma', 'delta']),
-        "Reports": {
-            "Turnover": getRandomNumber(10,3000),
-            "Hourly":
-                [
-                    {
-                        "time":(new Date()).toISOString(),
-                        "turnover": getRandomNumber(10,500),
-                        "tax":getRandomNumber(10,40)
-                    },
-                    {
-                        "time":(new Date()).toISOString(),
-                        "turnover": getRandomNumber(10,500),
-                        "tax":getRandomNumber(10,40)
-                    },
-                    {
-                        "time":(new Date()).toISOString(),
-                        "turnover": getRandomNumber(10,500),
-                        "tax":getRandomNumber(10,40)
-                    },
-                    {
-                        "time":(new Date()).toISOString(),
-                        "turnover": getRandomNumber(10,500),
-                        "tax":getRandomNumber(10,40)
-                    },
-                    {
-                        "time":(new Date()).toISOString(),
-                        "turnover": getRandomNumber(10,500),
-                        "tax":getRandomNumber(10,40)
-                    },
-                    {
-                        "time":(new Date()).toISOString(),
-                        "turnover": getRandomNumber(10,500),
-                        "tax":getRandomNumber(10,40)
-                    },
-                    {
-                        "time":(new Date()).toISOString(),
-                        "turnover": getRandomNumber(10,500),
-                        "tax":getRandomNumber(10,40)
-                    },
-                    {
-                        "time":(new Date()).toISOString(),
-                        "turnover": getRandomNumber(10,500),
-                        "tax":getRandomNumber(10,40)
-                    },
-                    {
-                        "time":(new Date()).toISOString(),
-                        "turnover": getRandomNumber(10,500),
-                        "tax":getRandomNumber(10,40)
-                    },
-                    {
-                        "time":(new Date()).toISOString(),
-                        "turnover": getRandomNumber(10,500),
-                        "tax":getRandomNumber(10,40)
-                    },
-                    {
-                        "time":(new Date()).toISOString(),
-                        "turnover": getRandomNumber(10,500),
-                        "tax":getRandomNumber(10,40)
-                    },
-                    {
-                        "time":(new Date()).toISOString(),
-                        "turnover": getRandomNumber(10,500),
-                        "tax":getRandomNumber(10,40)
-                    }
-                ],
-            "Departments":
-                [
-                        {
-                            "departmentName":getRandomProtocol(['Foo', 'Bar', 'Zar', 'Tall']),
-                            "departmentID":getRandomNumber(1,50),
-                            "turnover":getRandomNumber(10,500)
-                        },
-
-                        {
-                            "departmentName":getRandomProtocol(['Foo', 'Bar', 'Zar', 'Tall']),
-                            "departmentID":getRandomNumber(1,50),
-                            "turnover":getRandomNumber(10,500)
-                        }
-                    ,
-
-                        {
-                            "departmentName":getRandomProtocol(['Foo', 'Bar', 'Zar', 'Tall']),
-                            "departmentID":getRandomNumber(1,50),
-                            "turnover":getRandomNumber(10,500)
-                        }
-                    ,
-
-                        {
-                            "departmentName":getRandomProtocol(['Foo', 'Bar', 'Zar', 'Tall']),
-                            "departmentID":getRandomNumber(1,50),
-                            "turnover":getRandomNumber(10,500)
-                        }
-
-                ]
-        }
-    };
-
-    return data;
-};
-
-exports.generateRandomHeader = function () {
+/**
+ * generateRandomHeader
+ * @param POSHash
+ * @param POSName
+ * @param POSClientID
+ * @returns Object
+ */
+exports.generateRandomHeader = function (POSHash, POSName, POSClientID) {
 
     var header = {
-        "POSUniqueID" : getRandomProtocol(['aloha', 'futurepos', 'until', 'genericPos', 'standardPos']),
-        "ClientID": (getRandomNumber(1,10)).toString(),
-        "Hash": getRandomNumber(10000, 99999) + getRandomProtocol(['abcd','efgh','ijkl','mnop','qrst','uvwx','yz']) + getRandomNumber(10000, 99999) + getRandomProtocol(['abcd','efgh','ijkl','mnop','qrst','uvwx','yz'])
+        "POSUniqueID" : POSName,
+        "ClientID": POSClientID,
+        "Hash": POSHash
     };
 
     return {data :JSON.stringify(header)};
 };
- 
 
-// Generate Ramdom numbers between a range givens
-function getRandomNumber(min, max) {
-     return Math.floor( Math.random() * (max - min) + min );
-}
+/**
+ * generateRandomData
+ * @param POSDate
+ * @param POSHash
+ * @param POSName
+ * @param POSClientID
+ * @returns Object
+ */
+exports.generateRandomData = function (POSDate, POSHash, POSName, POSClientID){
 
-function getRandomProtocol(array){
-    return array[Math.floor(Math.random() * array.length)];
-}
+    var dateString = POSDate + 'T04:00:00.000Z',
+        date = new Date(dateString);
 
-//console.log("%s",JSON.stringify(this.generateRandomData(),2,2));
-//console.log("%s",JSON.stringify(this.generateRandomHeader(),2,2));
+    return {
+        "TargetDate" : dateString,
+        "TargetTime" : 1444659458228,
+        "BusinessDate" : dateString,
+        "POSID" : POSClientID,
+        "POSName" : POSName,
+        "Reports" : {
+            "Turnover" : {
+                "turnover" : 204.05,
+                "tax" : 16.2864
+            },
+            "Hourly" : [
+                {
+                    "time" :  (dateHelper(date).add("hour", 0).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 1).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 2).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 3).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 4).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 5).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 6).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 7).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 8).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 9).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 10).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 11).value()).toISOString(),
+                    "turnover" : 31.45,
+                    "tax" : 2.365
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 12).value()).toISOString(),
+                    "turnover" : 80.40000000000001,
+                    "tax" : 5.077
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 13).value()).toISOString(),
+                    "turnover" : 27,
+                    "tax" : 3.6918
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 14).value()).toISOString(),
+                    "turnover" : 58.6,
+                    "tax" : 4.779
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 15).value()).toISOString(),
+                    "turnover" : 6.6,
+                    "tax" : 0.3736
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 16).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 17).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 18).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 19).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 20).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 21).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 22).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                },
+                {
+                    "time" :  (dateHelper(date).add("hour", 23).value()).toISOString(),
+                    "turnover" : 0,
+                    "tax" : 0
+                }
+            ],
+            "Departments" : [
+                {
+                    "departmentName" : "Restaurant",
+                    "departmentID" : "Restaurant",
+                    "turnover" : 135.55,
+                    "tax" : 10.4208
+                },
+                {
+                    "departmentName" : "Terras",
+                    "departmentID" : "Terras",
+                    "turnover" : 68.5,
+                    "tax" : 5.8656
+                },
+                {
+                    "departmentName" : "Kassa7",
+                    "departmentID" : "Kassa7",
+                    "turnover" : 0,
+                    "tax" : 0
+                }
+            ]
+        }
+    };
+};

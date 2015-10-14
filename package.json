@@ -15,5 +15,10 @@
     "update"
   ],
   "author": "Daniela Ruiz",
-  "license": "BSD"
+  "license": "BSD",
+  "dependencies": {
+    "date-extended": "0.0.6",
+    "http": "0.0.0",
+    "is-my-json-valid": "^2.12.2"
+  }
 }
